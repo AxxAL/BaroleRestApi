@@ -10,43 +10,55 @@ namespace BaroleRestApi.Controllers
     [Route("/api/v1/role")]
     public class BarotraumaRoleController : ControllerBase
     {
+        private readonly BarotraumaRoleService service;
+
+        public BarotraumaRoleController(BarotraumaRoleService service)
+        {
+            this.service = service;
+        }
+        
+        
         [HttpGet("{id}")]
         public ActionResult<BarotraumaRole> Get(string id)
         {
             Guid guid = Guid.Parse(id);
-            BarotraumaRole? result = BarotraumaRoleService.Get(guid);
-            if (result == null) return NotFound();
-            return result;
+            BarotraumaRole? result = service.Get(guid);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(result);
         }
 
         [HttpGet("all")]
         public ActionResult<List<BarotraumaRole>> GetAll()
         {
-            List<BarotraumaRole>? result = BarotraumaRoleService.GetAll();
+            List<BarotraumaRole>? result = service.GetAll();
 
             if (result == null || result.Count < 1)
             {
                 return NoContent();
             }
 
-            return result;
+            return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult Create(BarotraumaRole barotraumaRole)
+        public ActionResult<BarotraumaRole> Create(BarotraumaRole barotraumaRole)
         {
-            BarotraumaRole? result = BarotraumaRoleService.Add(barotraumaRole);
+            BarotraumaRole? result = service.Add(barotraumaRole);
             
             if (result == null)
             {
                 return BadRequest();
             }
             
-            return Ok();
+            return Ok(result);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(string id, BarotraumaRole barotraumaRole)
+        public ActionResult<BarotraumaRole> Update(string id, BarotraumaRole barotraumaRole)
         {
             Guid guid = Guid.Parse(id);
             
@@ -55,28 +67,28 @@ namespace BaroleRestApi.Controllers
                 return BadRequest();
             }
 
-            BarotraumaRole? result = BarotraumaRoleService.Put(guid, barotraumaRole);
+            BarotraumaRole? result = service.Put(guid, barotraumaRole);
 
             if (result == null)
             {
                 return NotFound();
             }
 
-            return Ok();
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public ActionResult<BarotraumaRole> Delete(string id)
         {
             Guid guid = Guid.Parse(id);
-            BarotraumaRole? result = BarotraumaRoleService.Remove(guid);
+            BarotraumaRole? result = service.Remove(guid);
             
             if (result == null)
             {
                 return BadRequest();
             }
 
-            return Ok();
+            return Ok(result);
         }
     }
 }
