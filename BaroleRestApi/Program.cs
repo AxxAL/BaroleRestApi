@@ -33,9 +33,9 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddSwaggerGen(options =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Barole", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Barole", Version = "v1" });
     
     OpenApiSecurityScheme securitySchema = new OpenApiSecurityScheme
     {
@@ -51,9 +51,9 @@ builder.Services.AddSwaggerGen(c =>
         }
     };
     
-    c.AddSecurityDefinition("Bearer", securitySchema);
+    options.AddSecurityDefinition("Bearer", securitySchema);
 
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         { securitySchema, new[] { "Bearer" } }
     });
