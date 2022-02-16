@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BaroleRestApi.Models;
 using BaroleRestApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BaroleRestApi.Controllers
@@ -36,7 +37,7 @@ namespace BaroleRestApi.Controllers
         {
             List<BarotraumaRole>? result = service.GetAll();
 
-            if (result == null || result.Count < 1)
+            if (result.Count < 1)
             {
                 return NoContent();
             }
@@ -44,7 +45,8 @@ namespace BaroleRestApi.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [Authorize]
+        [HttpPost("create")]
         public ActionResult<BarotraumaRole> Create(BarotraumaRole barotraumaRole)
         {
             BarotraumaRole? result = service.Add(barotraumaRole);
@@ -57,6 +59,16 @@ namespace BaroleRestApi.Controllers
             return Ok(result);
         }
 
+        [Authorize]
+        [HttpPost("createMany")]
+        public ActionResult<List<BarotraumaRole>> CreateMany(BarotraumaRole[] barotraumaRoles)
+        {
+            List<BarotraumaRole> result = service.AddCollection(barotraumaRoles);
+
+            return Ok(result);
+        }
+
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult<BarotraumaRole> Update(string id, BarotraumaRole barotraumaRole)
         {
@@ -77,6 +89,7 @@ namespace BaroleRestApi.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public ActionResult<BarotraumaRole> Delete(string id)
         {

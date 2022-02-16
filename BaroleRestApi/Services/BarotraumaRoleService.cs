@@ -11,7 +11,7 @@ namespace BaroleRestApi.Services
 {
     public class BarotraumaRoleService
     {
-        private  BarotraumaRoleContext context;
+        private readonly BarotraumaRoleContext context;
 
         public BarotraumaRoleService(BarotraumaRoleContext context)
         {
@@ -30,7 +30,7 @@ namespace BaroleRestApi.Services
         /*
          * Gets all roles.
          */
-        public  List<BarotraumaRole>? GetAll()
+        public  List<BarotraumaRole> GetAll()
         {
             return context.BarotraumaRoles
                 .AsNoTracking()
@@ -60,8 +60,9 @@ namespace BaroleRestApi.Services
          */
         public List<BarotraumaRole> AddCollection(IEnumerable<BarotraumaRole> newRoles)
         {
-           context.BarotraumaRoles.AddRange(newRoles);
+            context.BarotraumaRoles.AddRange(newRoles);
            context.SaveChanges();
+           
            return (List<BarotraumaRole>) newRoles;
         }
         
