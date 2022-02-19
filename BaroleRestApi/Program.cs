@@ -34,6 +34,19 @@ builder.Services.AddDbContext<BarotraumaRoleContext>(
         .EnableDetailedErrors()
     );
 
+// Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("allowedOrigins",
+        policyBuilder =>
+        {
+            policyBuilder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+
 // Auth0
 builder.Services.AddAuthentication(options =>
 {
@@ -85,8 +98,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
+
+app.UseCors("allowedOrigins");
 
 app.MapControllers();
 
