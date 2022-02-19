@@ -1,6 +1,12 @@
+using System;
 using BaroleRestApi.Data;
 using BaroleRestApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +25,14 @@ builder.Configuration.AddJsonFile("appsettings.json", false, true);
 builder.Services.AddScoped<BarotraumaRoleService>();
 
 // Database config
-builder.Services.AddSqlite<BarotraumaRoleContext>("Data Source=Barole.db");
+string connectionString = builder.Configuration.GetValue<string>("MariaDB:ConnectionString");
+builder.Services.AddDbContext<BarotraumaRoleContext>(
+    options => options
+        .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+        .LogTo(Console.WriteLine)
+        .EnableSensitiveDataLogging()
+        .EnableDetailedErrors()
+    );
 
 // Auth0
 builder.Services.AddAuthentication(options =>

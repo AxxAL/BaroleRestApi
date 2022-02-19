@@ -11,41 +11,50 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BaroleRestApi.Migrations
 {
     [DbContext(typeof(BarotraumaRoleContext))]
-    [Migration("20220213150850_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220218234738_Maria")]
+    partial class Maria
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.2");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.2")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("BaroleRestApi.Models.BarotraumaRole", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("char(36)")
+                        .HasDefaultValue(new Guid("04731f90-3dc3-4371-8669-6306b6d70562"));
 
                     b.Property<string>("AdditionalInfo")
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)");
 
                     b.Property<string>("BarotraumaJob")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("Goal")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)");
 
                     b.Property<string>("Tips")
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("WinCondition")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)");
 
                     b.HasKey("Id");
 
