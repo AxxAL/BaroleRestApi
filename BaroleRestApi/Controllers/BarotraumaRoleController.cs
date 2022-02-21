@@ -35,7 +35,20 @@ namespace BaroleRestApi.Controllers
         [HttpGet("all")]
         public ActionResult<List<BarotraumaRole>> GetAll()
         {
-            List<BarotraumaRole>? result = service.GetAll();
+            List<BarotraumaRole> result = service.GetAll();
+
+            if (result.Count < 1)
+            {
+                return NoContent();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("titleSearch/{title}")]
+        public ActionResult<List<BarotraumaRole>> SearchByTitle(string title)
+        {
+            List<BarotraumaRole> result = service.SearchByTitle(title);
 
             if (result.Count < 1)
             {
