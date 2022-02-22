@@ -29,10 +29,7 @@ string connectionString = builder.Configuration.GetValue<string>("MariaDB:Connec
 builder.Services.AddDbContext<BarotraumaRoleContext>(
     options => options
         .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
-        .LogTo(Console.WriteLine)
-        .EnableSensitiveDataLogging()
-        .EnableDetailedErrors()
-    );
+);
 
 // Cors
 builder.Services.AddCors(options =>

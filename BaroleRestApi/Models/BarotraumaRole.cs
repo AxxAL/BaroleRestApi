@@ -16,17 +16,17 @@ namespace BaroleRestApi.Models
         public string? BarotraumaJob { get; set; }
         
         [Required]
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string? Goal { get; set; }
         
         [Required]
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string? WinCondition { get; set; }
         
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string? AdditionalInfo { get; set; }
         
-        [MaxLength(512)]
+        [MaxLength(2048)]
         public string? Tips { get; set; }
     }
 }

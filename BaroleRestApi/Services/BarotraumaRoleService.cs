@@ -52,7 +52,7 @@ namespace BaroleRestApi.Services
         public BarotraumaRole? Add(BarotraumaRole barotraumaRole)
         {
             // TODO: Fix. Can't compare ids because the new role's id isn't generated yet...
-            if (context.BarotraumaRoles.Find(barotraumaRole.Id) != null)
+            if (context.BarotraumaRoles.Where(role => role.Title.Equals(barotraumaRole.Title)).Count() > 0)
             {
                 return null;
             }

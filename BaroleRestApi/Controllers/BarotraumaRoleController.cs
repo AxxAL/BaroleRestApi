@@ -17,13 +17,13 @@ namespace BaroleRestApi.Controllers
         {
             this.service = service;
         }
-        
-        
+
         [HttpGet("{id}")]
         public ActionResult<BarotraumaRole> Get(string id)
         {
             Guid guid = Guid.Parse(id);
             BarotraumaRole? result = service.Get(guid);
+            
             if (result == null)
             {
                 return NotFound();
@@ -66,7 +66,7 @@ namespace BaroleRestApi.Controllers
             
             if (result == null)
             {
-                return BadRequest();
+                return BadRequest($"Entry for \"{barotraumaRole.Title}\" already exists in database.");
             }
             
             return Ok(result);

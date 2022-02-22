@@ -21,13 +21,13 @@ namespace BaroleRestApi.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     BarotraumaJob = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Goal = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: false)
+                    Goal = table.Column<string>(type: "varchar(2048)", maxLength: 2048, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    WinCondition = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: false)
+                    WinCondition = table.Column<string>(type: "varchar(2048)", maxLength: 2048, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    AdditionalInfo = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: true)
+                    AdditionalInfo = table.Column<string>(type: "varchar(2048)", maxLength: 2048, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tips = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: true)
+                    Tips = table.Column<string>(type: "varchar(2048)", maxLength: 2048, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
